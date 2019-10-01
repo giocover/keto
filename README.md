@@ -9,3 +9,7 @@ This python script reads from the selected path and loads a lesion segmentation 
 * To select where results will be saved, the following variable should be edited:
 
 <pre><code>save_path</code></pre>
+
+As an output, the graph result should look like this:
+
+![total_loss](https://user-images.githubusercontent.com/32575426/65988245-75ba2f80-e455-11e9-8260-5b6f81b362a1.png)
