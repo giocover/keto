@@ -1,31 +1,36 @@
+# ---------------------------------------- Libraries -------------------------------------------- #
 import os
 import numpy as np
 import matplotlib.pyplot as plt 
 
+# ------------------------------------- Path Selection ------------------------------------------ #
+save_path = 'C:\Users\FarivarLabPC\OneDrive - McGill University\Research\Keto Project\\'
 dir_path = ('C:/Users/FarivarLabPC/OneDrive - McGill University/Research/Keto Project/subjects/')
 os.chdir(str(dir_path))
 
+# ---------------------------------- Subject Selection ------------------------------------------ #
 subjects = [d for d in os.listdir('.') if os.path.isdir(d)]
 subjects = np.array(subjects)
 
+# ----------------------------------- Global Variables ------------------------------------------ #
 images = ['Start_Image','Follow Up']
-save_path = 'C:\Users\FarivarLabPC\OneDrive - McGill University\Research\Keto Project\\'
 
+# ------------------------------------- Main Program -------------------------------------------- #
 for n, m in enumerate(subjects):
 #    if True:
     try:
         for j, k in enumerate(images):        
             
+            # ------------------------------------ Loading Files ------------------------------------------- #
             total_loss_loss_s = (np.load(str(save_path)+'files\\'+str(m)+'\\'+'total_loss_s_'+str(m)+'.npy'))
             total_loss_loss_f = (np.load(str(save_path)+'files\\'+str(m)+'\\'+'total_loss_f_'+str(m)+'.npy'))
-            
             total_loss = np.load(str(save_path)+'files\\'+str(m)+'\\'+'total_loss_'+str(m)+'_'+str(k)+'.npy')
-            
             master = np.load(str(save_path)+'files\\'+str(m)+'\\'+'lesion_volume_'+str(m)+'_'+str(k)+'.npy')
             
             x = np.arange(0,master.size) 
             y = (master[:,0]/1000)
             
+            # ---------------------------- Generating Graph per Subjects ----------------------------------- #
             fig_0 = plt.figure(n)
             
             mectric = str(k)+u' %.1f cm\u00b3'% (total_loss/1000)
@@ -37,6 +42,7 @@ for n, m in enumerate(subjects):
             plt.legend() 
             plt.title('subject: '+str(m)) 
             
+            # ------------------------------------ Saving Graphs ------------------------------------------- #
 #            plt.savefig(str(save_path)+'graphs\\'+str(m), dpi=600, transparent=True, bbox_inches='tight')
     except:
         pass    
