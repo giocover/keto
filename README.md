@@ -13,5 +13,3 @@ This python script reads from the selected path and loads a lesion segmentation 
 As an output, the graph result should look like this:
 
 ![image](https://user-images.githubusercontent.com/32575426/66067725-2d187a00-e51a-11e9-97f1-86fd44b7c730.PNG)
-
-![total_loss](https://user-images.githubusercontent.com/32575426/65988245-75ba2f80-e455-11e9-8260-5b6f81b362a1.png)
