@@ -1,21 +1,25 @@
+# ---------------------------------------- Libraries -------------------------------------------- #
 import os
 import numpy as np
 import nrrd as nd
 import matplotlib.pyplot as plt 
 
+# ------------------------------------- Path Selection ------------------------------------------ #
+save_path = 'C:\Users\FarivarLabPC\OneDrive - McGill University\Research\Keto Project\\'
 dir_path = ('C:/Users/FarivarLabPC/OneDrive - McGill University/Research/Keto Project/subjects/')
 os.chdir(str(dir_path))
 
+# ---------------------------------- Subject Selection ------------------------------------------ #
 subjects = [d for d in os.listdir('.') if os.path.isdir(d)]
 subjects = np.array(subjects)
 
+# ----------------------------------- Global Variables ------------------------------------------ #
 images = ['Start_Image','Follow Up']
-save_path = 'C:\Users\FarivarLabPC\OneDrive - McGill University\Research\Keto Project\\'
-
 total_loss_s = np.zeros((len(subjects), 1)) 
 total_loss_f = np.zeros((len(subjects), 1)) 
 loss = np.zeros((len(subjects), len(images))) 
 
+# ------------------------------------- Main Program -------------------------------------------- #
 print("\n ############# Starting Program ############# ")
       
 for n, m in enumerate(subjects):
@@ -24,8 +28,10 @@ for n, m in enumerate(subjects):
         print("#---------------------------------------#\n")
         print(">>> subject being analysed: "+str(m)+"\n")
         print(">>> subject number "+str(n+1)+" of "+str(len(subjects))+"\n")
+        
         for j, k in enumerate(images):
-
+            
+            # -------------------- Loads Segmentation and CT File ------------------------------- #
             seg_path = str(dir_path)+str(m)+'/'+str(k)+'/lesion_seg_judith_0.nrrd'
             ct_path = str(dir_path)+str(m)+'/'+str(k)+'/ct_image.nrrd'
             readdata, header = nd.read(seg_path)
@@ -33,6 +39,7 @@ for n, m in enumerate(subjects):
             axial = [int(a) for a in readdata.shape]
             master = np.zeros((axial[2], 1)) 
             
+            # ----------------------------- Slices Reading -------------------------------------- #
             for slice in range(0,readdata.shape[2]):
                 
                 readdata, header = nd.read(seg_path)
@@ -42,7 +49,8 @@ for n, m in enumerate(subjects):
                 
                 ct_readdata, header = nd.read(ct_path)
                 ct_image = np.transpose(ct_readdata[:,:,slice])
-            
+                
+                # ------------------- Lesion Measuraments per Slice ----------------------------- #
                 head_dim = header['space directions']
                 pixel_len = head_dim[0,0]
                 pixel_wid = head_dim[1,1]
@@ -52,7 +60,8 @@ for n, m in enumerate(subjects):
                 lesion_volume = lesion_size*pixel_len*pixel_wid*slice_th
             
                 master[slice] = lesion_volume 
-                
+            
+            # ---------------------- Creates Folder if Non-existent ----------------------------- #
             try:
                 directory = str(save_path)+'files\\'+str(m)
                 os.makedirs(directory)
@@ -73,18 +82,20 @@ for n, m in enumerate(subjects):
         
         total_loss_s[n] = loss_s
         total_loss_f[n] = loss_f
-
+        
+        # --------------------------------- Saving Results -------------------------------------- #
         print(">>> saving total loss s \n")
-        np.save(str(directory)+'\\total_loss_s_'+str(m), total_loss_s)
+#        np.save(str(directory)+'\\total_loss_s_'+str(m), total_loss_s)
         print(">>> saving total loss f \n")
-        np.save(str(directory)+'\\total_loss_f_'+str(m), total_loss_f)
+#        np.save(str(directory)+'\\total_loss_f_'+str(m), total_loss_f)
         
     except:
         pass
 
 loss = np.vstack((total_loss_s.T,total_loss_f.T))
-np.save(str(save_path)+'\\master_loss',loss)
+#np.save(str(save_path)+'\\master_loss',loss)
 
+# ----------------------------------- Creating Final Image -------------------------------------- #
 fig_1 = plt.figure()
 
 p1 = plt.bar(np.arange(len(subjects)), loss[0,:], width = 0.35)
@@ -97,11 +108,11 @@ plt.yticks(loss.flatten('F'))
 plt.grid(True, color = "#a6a6a6", linestyle='dotted') 
 plt.xlabel('subject number') 
 plt.ylabel(u'lesion volume [cm\u00b3]') 
-plt.savefig(str(save_path)+'\\total_loss', dpi=600, transparent=True, bbox_inches='tight')
+#plt.savefig(str(save_path)+'\\total_loss', dpi=600, transparent=True, bbox_inches='tight')
 
 print("############# Program Ended ############# \n")
 
-      #%%
+# --------------------------------- Creating Final Matrices ------------------------------------- #
 l = loss.T
 percentage = np.zeros((len(l)))
 subtraction = np.zeros((len(l)))
@@ -127,5 +138,5 @@ matrix = np.vstack((np.arange(1,len(subtraction)+1),matrix))
 h = ['position','id','start_volume','follow_up_volume','percentage','subtraction']
 matrix = np.vstack((h,matrix.T)) 
 
-np.save(str(save_path)+'\\final_matrix',matrix)
-np.savetxt(str(save_path)+"\\final_matrix.csv", matrix, delimiter=",", fmt='%s', comments='')
+#np.save(str(save_path)+'\\final_matrix',matrix)
+#np.savetxt(str(save_path)+"\\final_matrix.csv", matrix, delimiter=",", fmt='%s', comments='')
