@@ -1,6 +1,6 @@
 # keto
 
-This python script reads from the selected path and loads a lesion segmentation file and a CT image. As a result, it computes the total volume of the lesion per subject and outputs a bar graph with all results. 
+This python script reads from the selected path and loads a lesion segmentation file and a CT image. As a result, it computes the total volume of the lesion per subject and outputs a table with all results. The table should look like this:
 
 * To add the path, the following variable should be altered:
 
