@@ -1,0 +1,31 @@
+\begin{tikzpicture}[scale=1.2]
+        \begin{axis}[
+                ybar,
+                %ymin=-1,
+                bar width=3mm,
+                yticklabels={,,},
+                enlargelimits=0.15,
+                legend style={at={(0.5,1.15)},
+                anchor=north,legend columns=-1},
+                ylabel={lesion volume [cm$^3$]},
+                xlabel={subject id},
+                xtick=data,
+                xticklabels={$1412244$,$5250338$,$5344003$,$5358570$,$5368664$,$5397598$,$5411704$},
+                xticklabel style={rotate=90},
+                nodes near coords,
+                enlarge y limits={upper,value=0.25},
+                every node near coord/.append style={rotate=90, anchor=west},
+                ]
+                \begin{pgfonlayer}{background} 
+                    \fill[primary,fill opacity=0.2]    (7.45,0) rectangle (6.52,6.5);
+                    \fill[primary,fill opacity=0.2]    (6.41,0) rectangle (5.55,6.5);
+                    \fill[primary,fill opacity=0.2]    (1.43,0) rectangle (0.55,6.5);
+                \end{pgfonlayer}
+
+                \addplot[fill=secondary!80!black, fill opacity=0.5] 
+                    table[x=position,y=start_volume,col sep=comma]{matrix/final_matrix_low.csv};
+                \addplot[fill=primary!80!black, fill opacity=0.5] 
+                    table[x=position,y=follow_up_volume,col sep=comma]{matrix/final_matrix_low.csv};
+                \legend{initial image, follow up}
+        \end{axis}
+    \end{tikzpicture}
