@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage[a3paper,margin=0.5cm,landscape]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,subfigure,tikz,pgfplots,hyperref}
+
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{primary}{RGB}{101,195,186} % Green
+\definecolor{secondary}{RGB}{203,204,198} % Grey
+\definecolor{thirdly}{RGB}{248,137,141} % Peach
+
+\pgfplotsset{compat=newest} 
+\pgfdeclarelayer{background}    
+\pgfsetlayers{background,main}  
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\fancyhf{} % empty header and footer
+\renewcommand{\headrulewidth}{0pt} % ho header line
+\renewcommand{\footrulewidth}{0pt}% not footer line
+\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+
+\usepackage[font=Large]{caption}

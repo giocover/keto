@@ -1,0 +1,43 @@
+\input{makros.tex}
+
+\begin{document}
+
+\section*{Keto Project Results}
+	\vspace*{-0.4cm}\rule{10cm}{0.1mm}
+	
+	\Large{Lesion volume measurement results from CT scans acquired when the subject arrives at the hospital (start image), and from CT scans acquired after a period of time (follow up). Follow up acquisitions varies from weeks to years, depending on the subject. Subjects are represented here as their hospital ID number, since all were previously anonymized.} 
+	
+\begin{figure}[!h]
+    \begin{minipage}{0.5\linewidth}
+        \centering
+        \begin{minipage}{0.25\linewidth}\hspace{-1cm}
+            \input{figures/legion_volume_total.tex}
+        \end{minipage}
+        \begin{minipage}{0.25\linewidth}\hspace{3.5cm}
+            \Huge{$\rightarrow$}
+        \end{minipage}
+        \begin{minipage}{0.25\linewidth}
+            \input{figures/lesion_volume_high.tex}
+        \end{minipage}
+        \begin{minipage}{0.25\linewidth}\vspace{-10.93cm}\hspace{15.5cm}
+            \input{figures/legion_volume_low.tex}
+        \end{minipage}
+    \end{minipage}\vspace{-0.5cm}
+    \caption{Lesion volume size measured from manual segmentation for all 14 subjects (left). Due to scaling, results were separated into two groups to be better visualized: higher lesion volume sizes (middle) and lower lesion volume sizes (right). \emph{Subjects that received keto feeding are represented in green background.}}
+\end{figure}
+
+\begin{figure}[!h]\vspace{-0.5cm}
+    \begin{minipage}{1\textwidth}
+        \centering
+            \begin{minipage}{0.25\linewidth}\hspace{-3cm}
+                \input{figures/percentage.tex}
+            \end{minipage}
+            \begin{minipage}{0.25\linewidth}
+                \input{figures/subtraction.tex}
+            \end{minipage}
+    \end{minipage}\vspace{-0.15cm}
+   \caption{Percentage values from start image lesion volume size compared to follow up (left). Subtraction values from start image lesion volume size compared to follow up (right). \emph{Subjects that received keto feeding are represented in gray background.}}
+\end{figure}
+
+\end{document}
+
